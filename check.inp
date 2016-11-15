@@ -1,0 +1,52 @@
+variable type  string CHARMM
+variable molec string sarin
+
+#variable type  string TraPPE
+#variable molec string butane
+
+
+
+units real
+atom_style     full
+boundary f f f
+
+
+region mybox block -50 50  -50 50  -50 50
+create_box  8 mybox  &
+              bond/types 8  &
+              angle/types 14  &
+              dihedral/types 15  &
+              improper/types 0  &
+              extra/bond/per/atom 40  & 
+              extra/angle/per/atom 40  & 
+              extra/dihedral/per/atom 40  &
+              extra/improper/per/atom 40  &
+              extra/special/per/atom 30  &
+
+
+# topology and parameter files
+molecule probe ${type}/${molec}.molec 
+include ${type}/${molec}.prm
+
+
+thermo 1
+thermo_style custom step ebond eangle edihed eimp emol evdwl ecoul etotal
+
+fix 1 all deposit 1 0 1 9834699 mol probe region mybox
+run 10
+
+
+dump trj all custom 10 check.lammpstrj id x y z
+dump_modify trj sort id
+
+run 0
+
+#-----------------------------------------------------------------
+
+#minimize 0.  0.  100 1000
+
+#fix 2 all nve
+#fix 3 all rattle 1e-6 500 0 m 1.0
+#run 1000
+
+write_data check.data

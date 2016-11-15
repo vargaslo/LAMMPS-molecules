@@ -1,0 +1,71 @@
+# parameter file for use with "units real"
+# http://lammps.sandia.gov/doc/units.html
+
+
+mass 1   1.008   # HGA1
+mass 2   1.008   # HGA3
+mass 3  12.011   # CG311
+mass 4  12.011   # CG331
+mass 5  15.9994  # OG2P1
+mass 6  15.9994  # OG303
+mass 7  18.998   # FGP1
+mass 8  30.9738  # PG0
+
+
+pair_style lj/charmm/coul/charmm 80 90
+pair_modify mix arithmetic
+special_bonds lj/coul 0 0 0  # 1-4 interactions computed explicitly in dihedrals for CHARMM
+pair_coeff 1   1   0.045  2.38760856462   0.045  2.38760856462  # HGA1
+pair_coeff 2   2   0.024  2.38760856462   0.024  2.38760856462  # HGA3
+pair_coeff 3   3   0.032  3.56359487256   0.01   3.38541512893  # CG311
+pair_coeff 4   4   0.078  3.65268474438   0.01   3.38541512893  # CG331
+pair_coeff 5   5   0.12   3.02905564168   0.12   3.02905564168  # OG2P1
+pair_coeff 6   6   0.1    2.93996576986   0.1    2.93996576986  # OG303
+pair_coeff 7   7   0.097  2.85087589805   0.097  2.85087589805  # FGP1
+pair_coeff 8   8   0.585  3.830864488     0.585  3.830864488    # PG0
+
+
+bond_style harmonic
+bond_coeff 1  222.5   1.538   # CG311  CG331   
+bond_coeff 2  309     1.111   # CG311  HGA1
+bond_coeff 3  340     1.43    # CG311  OG303   
+bond_coeff 4  322     1.111   # CG331  HGA3
+bond_coeff 5  270     1.89    # CG331  PG0 
+bond_coeff 6  387.55  1.6101  # FGP1   PG0 
+bond_coeff 7  580     1.48    # OG2P1  PG0 
+bond_coeff 8  230     1.61    # OG303  PG0 
+
+
+angle_style charmm
+angle_coeff  1   33.43    110.1    22.53      2.179  # CG311    CG331    HGA3
+angle_coeff  2   20       120      35         2.33   # CG311    OG303    PG0 
+angle_coeff  3   53.35    114       8         2.561  # CG331    CG311    CG331   
+angle_coeff  4   34.5     110.1    22.53      2.179  # CG331    CG311    HGA1
+angle_coeff  5  115       109.7     0         0      # CG331    CG311    OG303   
+angle_coeff  6   80.95     96.03    0         0      # CG331    PG0      FGP1
+angle_coeff  7   38.46    103.57    0         0      # CG331    PG0      OG2P1   
+angle_coeff  8   83.95     96.82    0         0      # CG331    PG0      OG303   
+angle_coeff  9   60.56    102.41    0         0      # FGP1     PG0      OG2P1   
+angle_coeff 10   94.21     97.74    0         0      # FGP1     PG0      OG303   
+angle_coeff 11   60       109.5     0         0      # HGA1     CG311    OG303   
+angle_coeff 12   35.5     108.4     5.4       1.802  # HGA3     CG331    HGA3
+angle_coeff 13   90       110       5.4       1.802  # HGA3     CG331    PG0 
+angle_coeff 14   98.9     111.6     0         0      # OG2P1    PG0      OG303   
+                                            
+
+dihedral_style charmm
+dihedral_coeff  1   2.4107    1   180  1  # CG311    OG303    PG0      CG331   
+dihedral_coeff  2   0.1847    3   180  0  # CG311    OG303    PG0      CG331   
+dihedral_coeff  3   0.3918    1   180  1  # CG311    OG303    PG0      FGP1
+dihedral_coeff  4   0.1715    3   180  0  # CG311    OG303    PG0      FGP1
+dihedral_coeff  5   0.1       3     0  1  # CG311    OG303    PG0      OG2P1   
+dihedral_coeff  6   0.195     3     0  1  # CG331    CG311    CG331    HGA3
+dihedral_coeff  7   0.4       1   180  1  # CG331    CG311    OG303    PG0 
+dihedral_coeff  8   0.3       2     0  0  # CG331    CG311    OG303    PG0 
+dihedral_coeff  9   0.1       3     0  0  # CG331    CG311    OG303    PG0 
+dihedral_coeff 10   0.0475    3   180  1  # FGP1     PG0      CG331    HGA3
+dihedral_coeff 11   0.195     3     0  1  # HGA1     CG311    CG331    HGA3
+dihedral_coeff 12   0         3     0  1  # HGA1     CG311    OG303    PG0 
+dihedral_coeff 13   0.195     3     0  1  # HGA3     CG331    CG311    OG303   
+dihedral_coeff 14   0.1479    3     0  1  # HGA3     CG331    PG0      OG2P1   
+dihedral_coeff 15   0.0639    3   180  1  # HGA3     CG331    PG0      OG303   
