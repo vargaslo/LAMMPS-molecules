@@ -1,0 +1,21 @@
+# parameters for CHARMM TIP3P with long-range Coulombic solver
+# parameter file for use with "units real"
+# http://lammps.sandia.gov/doc/units.html
+
+mass 1  15.9994  # O
+mass 2   1.008   # H
+
+
+pair_style lj/charmm/coul/charmm 10 12
+pair_modify mix arithmetic
+special_bonds lj/coul 0 0 0  # 1-4 interactions computed explicitly in dihedrals for CHARMM
+pair_coeff 1   1   0.102  3.188   0.102  3.188  # O-O
+pair_coeff 2   2   0.     0.      0.     0.     # H-H
+
+
+bond_style harmonic
+bond_coeff 1  450.   0.9572  # O-H
+
+
+angle_style charmm
+angle_coeff  1  55.    104.52   0.   0.  # H-O-H

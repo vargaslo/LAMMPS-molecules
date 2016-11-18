@@ -1,0 +1,47 @@
+CHARMM TIP3P with long-range Coulombic solver
+
+ 3 atoms
+ 2 bonds
+ 1 angles
+ 0 dihedrals
+ 0 impropers
+
+Coords
+
+ 1   0.        0.        0.   # O
+ 2   0.        1.0462564634       -1.2469703407   # H
+ 3   0.1743075280        1.7488726024       -0.1360615815   # H
+
+Types
+
+ 1  4  # O
+ 2  4  # H
+ 3  3  # H
+                           
+Charges
+
+ 1  -0.830  # O
+ 2   0.415  # H
+ 3   0.415  # H
+
+Bonds
+
+ 1  1  1  2  # O-H
+ 2  1  1  3  # O-H
+
+Angles
+
+ 1  1   2  1  3  # H-O-H
+
+Special Bond Counts
+
+ 1  2 0 0
+ 2  1 1 0
+ 3  1 1 0
+
+Special Bonds
+
+ 1  2 3
+ 2  1 3
+ 3  1 2
+
