@@ -12,7 +12,7 @@ mass 7  18.998   # FGP1
 mass 8  30.9738  # PG0
 
 
-pair_style lj/charmm/coul/charmm 80 90
+pair_style lj/charmm/coul/charmm 10. 12.
 pair_modify mix arithmetic
 special_bonds lj/coul 0 0 0  # 1-4 interactions computed explicitly in dihedrals for CHARMM
 pair_coeff 1   1   0.045  2.38760856462   0.045  2.38760856462  # HGA1
