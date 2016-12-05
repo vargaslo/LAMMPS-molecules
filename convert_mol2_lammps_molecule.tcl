@@ -120,16 +120,17 @@ foreach atom_ind [[atomselect top all] get index] {
     if {[llength [lindex $bonded_atoms 0]]==3} {
         set bonded_atomtypes [[atomselect top "index [lindex $bonded_atoms 0]"] get type]
         set sortorder [lsort -dictionary -indices $bonded_atomtypes]
-                
+ 
+        set bonded_atomtypes_ordered [list ]
         lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 0]]
         lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 1]]
         lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 2]]
         
         # identify improper type (or assign new type if needed)
-        set improper_type [expr {1 + [lsearch impropers $bonded_atomtypes_ordered]}]
+        set improper_type [expr {1 + [lsearch $impropers $bonded_atomtypes_ordered]}]
         if {$improper_type==0} {
             lappend impropers $bonded_atomtypes_ordered
-            set improper_type [expr {1 + [lsearch impropers $bonded_atomtypes_ordered]}]
+            set improper_type [expr {1 + [lsearch $impropers $bonded_atomtypes_ordered]}]
         }
 
         incr i          
@@ -138,7 +139,7 @@ foreach atom_ind [[atomselect top all] get index] {
         set ind3 [lindex $bonded_atoms 0 [lindex $sortorder 1]]
         set ind4 [lindex $bonded_atoms 0 [lindex $sortorder 2]]
 
-        lappend type $atom_type
+        set type [list $atom_type]
         lappend type [lindex $bonded_atomtypes_ordered 0]
         lappend type [lindex $bonded_atomtypes_ordered 1]
         lappend type [lindex $bonded_atomtypes_ordered 2]
