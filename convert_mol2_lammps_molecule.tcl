@@ -154,7 +154,7 @@ foreach atom_ind [[atomselect top all] get index] {
 
 puts "\n\nMolecule file written: $outfile"
 puts "\nScript found $i improper torsions."
-puts "\nManually check the impropers!\n\n"
+puts "\nManually verify the impropers!\n\n"
 
 }
 
