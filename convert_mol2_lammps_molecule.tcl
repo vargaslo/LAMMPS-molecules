@@ -111,9 +111,12 @@ foreach d [topo getdihedrallist] {
 }
 
 # Impropers
+set i 0
+puts $fileID  "\nImpropers\n"
 foreach atom_ind [[atomselect top all] get index] {
     set bonds [[atomselect top "index $atom_ind"] getbonds]
     if {[llength $numbonds]==3} {
+        incr i
         puts "Improper dihedral found: central atom index: $atom_ind -- bonded atom indices: $bonds"
     }
 }
