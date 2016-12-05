@@ -118,7 +118,7 @@ foreach atom_ind [[atomselect top all] get index] {
     set atom_type [[atomselect top "index $atom_ind"] get type]
     set bonded_atoms [[atomselect top "index $atom_ind"] getbonds]
     if {[llength [lindex 0 $bonded_atoms]]==3} {
-        set bonded_atomtypes [[atomselect top "index $bonds"] get type]
+        set bonded_atomtypes [[atomselect top "index [lindex $bonded_atoms 0]"] get type]
         set sortorder [lsort -dictionary -indices $bonded_atomtypes]
                 
         lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 0]]
@@ -134,9 +134,9 @@ foreach atom_ind [[atomselect top all] get index] {
 
         incr i          
         set ind1 $atom_ind
-        set ind2 [lindex $bonded_atoms [lindex $sortorder 0]]
-        set ind3 [lindex $bonded_atoms [lindex $sortorder 1]]
-        set ind4 [lindex $bonded_atoms [lindex $sortorder 2]]
+        set ind2 [lindex $bonded_atoms 0 [lindex $sortorder 0]]
+        set ind3 [lindex $bonded_atoms 0 [lindex $sortorder 1]]
+        set ind4 [lindex $bonded_atoms 0 [lindex $sortorder 2]]
 
         lappend type $atom_type
         lappend type [lindex $bonded_atomtypes_ordered 0]
