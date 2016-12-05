@@ -110,6 +110,14 @@ foreach d [topo getdihedrallist] {
     puts $fileID  [format "%4d %4d %4d %4d %4d %4d  # %s" $i $dihedraltype $ser1 $ser2 $ser3 $ser4 $type]
 }
 
+# Impropers
+foreach atom_ind [[atomselect top all] get index] {
+    set bonds [[atomselect top "index $atom_ind"] getbonds]
+    if {[llength $numbonds]==3} {
+        puts "Improper dihedral found: central atom index: $atom_ind -- bonded atom indices: $bonds"
+    }
+}
+
 puts "\n\nMolecule file written: $outfile"
 puts "\nManually check for impropers!\n\n"
 
