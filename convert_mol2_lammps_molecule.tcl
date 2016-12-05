@@ -113,11 +113,41 @@ foreach d [topo getdihedrallist] {
 # Impropers
 set i 0
 puts $fileID  "\nImpropers\n"
+set impropers [list ]
 foreach atom_ind [[atomselect top all] get index] {
-    set bonds [[atomselect top "index $atom_ind"] getbonds]
-    if {[llength $numbonds]==3} {
-        incr i
-        puts "Improper dihedral found: central atom index: $atom_ind -- bonded atom indices: $bonds"
+    set atom_type [[atomselect top "index $atom_ind"] get type]
+    set bonded_atoms [[atomselect top "index $atom_ind"] getbonds]
+    if {[llength $bonded_atoms]==3} {
+        set bonded_atomtypes [[atomselect top "index $bonds"] get type]
+        set sortorder [lsort -dictionary -indices $bonded_atomtypes]
+                
+        lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 0]]
+        lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 1]]
+        lappend bonded_atomtypes_ordered [lindex $bonded_atomtypes [lindex $sortorder 2]]
+        
+        # identify improper type (or assign new type if needed)
+        set improper_type [expr {1 + [lsearch impropers $bonded_atomtypes_ordered]}]
+        if {$improper_type==0} {
+            lappend impropers $bonded_atomtypes_ordered
+            set improper_type [expr {1 + [lsearch impropers $bonded_atomtypes_ordered]}]
+        }
+
+        incr i          
+        set ind1 $atom_ind
+        set ind2 [lindex $bonded_atoms [lindex $sortorder 0]]
+        set ind3 [lindex $bonded_atoms [lindex $sortorder 1]]
+        set ind4 [lindex $bonded_atoms [lindex $sortorder 2]]
+
+        lappend type $atom_type
+        lappend type [lindex $bonded_atomtypes_ordered 0]
+        lappend type [lindex $bonded_atomtypes_ordered 1]
+        lappend type [lindex $bonded_atomtypes_ordered 2]
+        
+        set ser1 [expr "$ind1+1"]
+        set ser2 [expr "$ind2+1"]
+        set ser3 [expr "$ind3+1"]
+        set ser4 [expr "$ind4+1"]
+        puts $fileID [format "%4d %4d %4d %4d %4d %4d  # %s" $i $improper_type $ser1 $ser2 $ser3 $ser4 $type]
     }
 }
 
