@@ -117,7 +117,7 @@ set impropers [list ]
 foreach atom_ind [[atomselect top all] get index] {
     set atom_type [[atomselect top "index $atom_ind"] get type]
     set bonded_atoms [[atomselect top "index $atom_ind"] getbonds]
-    if {[llength [lindex 0 $bonded_atoms]]==3} {
+    if {[llength [lindex $bonded_atoms 0]]==3} {
         set bonded_atomtypes [[atomselect top "index [lindex $bonded_atoms 0]"] get type]
         set sortorder [lsort -dictionary -indices $bonded_atomtypes]
                 
